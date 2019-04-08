@@ -4,6 +4,7 @@ import os
 
 from flask import Flask, redirect, url_for, abort, render_template
 from flask_dance.contrib.google import make_google_blueprint, google
+from oauthlib.oauth2.rfc6749.errors import TokenExpiredError
 
 from dotenv import load_dotenv
 
@@ -23,15 +24,19 @@ TOKENS = {}
 def index():
     if not google.authorized:
         return redirect(url_for("google.login"))
-    resp = google.get("/oauth2/v1/userinfo")
-    email = resp.json()["email"]
-    if not email.endswith("@mun.ca"):
-        return "You must use a MUN email address to sign in."
-    else:
-        prefix = email.split("@")[0]
-        if prefix not in TOKENS:
-            TOKENS[prefix] = "".join([random.choice(string.ascii_letters) for _ in range(20)])
-        return render_template('verified.html', token=TOKENS[prefix])
+    try:
+        resp = google.get("/oauth2/v1/userinfo")
+        email = resp.json()["email"]
+        if not email.endswith("@mun.ca"):
+            return "You must use a MUN email address to sign in."
+        else:
+            prefix = email.split("@")[0]
+            if prefix not in TOKENS:
+                TOKENS[prefix] = "".join([random.choice(string.ascii_letters) for _ in range(20)])
+            return render_template('verified.html', token=TOKENS[prefix])
+    except TokenExpiredError:
+        return redirect(url_for("google.login"))
+
 
 @app.route("/identity/<token>")
 def identity(token):
