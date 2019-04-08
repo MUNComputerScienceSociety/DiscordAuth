@@ -10,6 +10,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+import sentry_sdk
+from sentry_sdk.integrations.flask import FlaskIntegration
+
+sentry_sdk.init(
+    dsn=os.environ["SENTRY_DSN"],
+    integrations=[FlaskIntegration()]
+)
+
 app = Flask(__name__)
 app.secret_key = os.environ["FLASK_SECRET_KEY"]
 app.config["GOOGLE_OAUTH_CLIENT_ID"] = os.environ["GOOGLE_CLIENT_ID"]
