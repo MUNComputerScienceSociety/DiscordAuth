@@ -2,7 +2,7 @@ import random
 import string
 import os
 
-from flask import Flask, redirect, url_for, abort
+from flask import Flask, redirect, url_for, abort, render_template
 from flask_dance.contrib.google import make_google_blueprint, google
 
 from dotenv import load_dotenv
@@ -31,8 +31,7 @@ def index():
         prefix = email.split("@")[0]
         if prefix not in TOKENS:
             TOKENS[prefix] = "".join([random.choice(string.ascii_letters) for _ in range(20)])
-        return f"Identity verified. Please return to the Discord and run the command: !identity verify {TOKENS[prefix]}"
-
+        return render_template('verified.html', token=TOKENS[prefix])
 
 @app.route("/identity/<token>")
 def identity(token):
