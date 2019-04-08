@@ -2,7 +2,7 @@ version: '3'
 
 services:
   discordauth:
-    image: tiangolo/uwsgi-nginx-flask:python3.7
+    build: ./
     restart: always
     container_name: discordauth
     networks:
@@ -16,7 +16,6 @@ services:
       traefik.frontend.entryPoints: "https"
     volumes:
       - ./:/app
-    command: pip install -r /app/requirements.txt && flask run --host=0.0.0.0
 networks:
   web:
     external: true
