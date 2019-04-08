@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  discordauth:
+    image: tiangolo/uwsgi-nginx-flask:python3.7
+    restart: always
+    container_name: discordauth
+    networks:
+      - web
+    expose:
+      - 5000
+    labels:
+      traefik.enable: true
+      traefik.frontend.rule: "Host: auth.muncompsci.ca"
+      traefik.port: 5000
+      traefik.frontend.entryPoints: "https"
+    volumes:
+      - ./:/app
+    command: flask run --host=0.0.0.0
+networks:
+  web:
+    external: true
