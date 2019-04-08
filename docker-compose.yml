@@ -16,7 +16,7 @@ services:
       traefik.frontend.entryPoints: "https"
     volumes:
       - ./:/app
-    command: flask run --host=0.0.0.0
+    command: pip install -r /app/requirements.txt && flask run --host=0.0.0.0
 networks:
   web:
     external: true
