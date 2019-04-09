@@ -6,10 +6,6 @@ from flask import Flask, redirect, url_for, abort, render_template
 from flask_dance.contrib.google import make_google_blueprint, google
 from oauthlib.oauth2.rfc6749.errors import TokenExpiredError
 
-from dotenv import load_dotenv
-
-load_dotenv()
-
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
 from sentry_sdk import last_event_id
