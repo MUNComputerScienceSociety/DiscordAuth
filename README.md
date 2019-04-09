@@ -1,5 +1,8 @@
 # DiscordAuth
 
+[![Build Status](https://drone.rileyflynn.me/api/badges/MUNComputerScienceSociety/DiscordAuth/status.svg)](https://drone.rileyflynn.me/MUNComputerScienceSociety/DiscordAuth)
+[![](https://images.microbadger.com/badges/image/muncs/discordauth.svg)](https://microbadger.com/images/muncs/discordauth "Get your own image badge on microbadger.com")
+
 DiscordAuth provides OAuth-based identity verification services for MUN-affiliated people.
 
 ## Usage
