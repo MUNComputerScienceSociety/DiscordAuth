@@ -2,13 +2,15 @@ version: '3'
 
 services:
   discordauth:
-    build: ./
+    image: muncs/discordauth
     restart: always
     container_name: discordauth
     networks:
       - web
     expose:
       - 5000
+    env_file:
+      - .env
     labels:
       traefik.enable: true
       traefik.frontend.rule: "Host: auth.muncompsci.ca"
