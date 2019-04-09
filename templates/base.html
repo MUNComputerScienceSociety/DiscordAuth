@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}{% endblock %} - MUN DiscordAuth</title>
+  <link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Fira Mono', monospace;
+      background-color: #101010;
+      margin: 0;
+      color: white;
+    }
+
+    #center {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #code-box {
+      padding: 0.8em 1.4em;
+      border-radius: 8px;
+      background-color: black;
+    }
+
+    h1 {
+      font-size: 4em;
+      margin: 0;
+    }
+    
+    .red {
+      color: red;
+    }
+
+    .rainbow {
+      animation: rainbow-animation 5s linear infinite alternate;
+      background: linear-gradient(92deg, #95d7e3, #eb76ff);
+      background: -webkit-linear-gradient(92deg, #95d7e3, #eb76ff);
+      background-size:600vw 600vw;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @keyframes rainbow-animation {
+      from {
+        filter: hue-rotate(0deg);
+        background-position-x: 0%;
+      }
+      to {
+        filter: hue-rotate(360deg);
+        background-position-x: 600vw;
+      }
+    }
+  </style>
+</head>
+<body>
+    {%block content %}{% endblock %}
+</body>
+</html>

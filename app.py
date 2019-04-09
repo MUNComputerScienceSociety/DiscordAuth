@@ -12,9 +12,12 @@ load_dotenv()
 
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
+from sentry_sdk import last_event_id
+
+sentry_dsn = os.environ["SENTRY_DSN"]
 
 sentry_sdk.init(
-    dsn=os.environ["SENTRY_DSN"],
+    dsn=sentry_dsn,
     integrations=[FlaskIntegration()]
 )
 
@@ -36,12 +39,12 @@ def index():
         resp = google.get("/oauth2/v1/userinfo")
         email = resp.json()["email"]
         if not email.endswith("@mun.ca"):
-            return "You must use a MUN email address to sign in."
+            return render_template("not_mun.html")
         else:
             prefix = email.split("@")[0]
             if prefix not in TOKENS:
                 TOKENS[prefix] = "".join([random.choice(string.ascii_letters) for _ in range(20)])
-            return render_template('verified.html', token=TOKENS[prefix])
+            return render_template("verified.html", token=TOKENS[prefix])
     except TokenExpiredError:
         return redirect(url_for("google.login"))
 
@@ -52,3 +55,13 @@ def identity(token):
         if t == token:
             return ident
     abort(404)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template("500.html", sentry_event_id=last_event_id(), sentry_dsn=sentry_dsn), 500
