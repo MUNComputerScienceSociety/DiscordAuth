@@ -11,7 +11,7 @@
 
     {% if sentry_event_id %}
       <script>
-      Sentry.init({ dsn: 'https://<key>@sentry.io/<project>' });
+      Sentry.init({ dsn: 'https://{{ sentry_dsn }}@sentry.io/<project>' });
       Sentry.showReportDialog({ eventId: '{{ sentry_event_id }}' })
       </script>
     {% endif %}
