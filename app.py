@@ -35,6 +35,7 @@ def index():
         resp = google.get("/oauth2/v1/userinfo")
         email = resp.json()["email"]
         if not email.endswith("@mun.ca"):
+            del google_bp.token
             return render_template("not_mun.html")
         else:
             prefix = email.split("@")[0]

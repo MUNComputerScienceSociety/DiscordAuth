@@ -4,7 +4,6 @@ services:
   discordauth:
     image: muncs/discordauth
     restart: always
-    container_name: discordauth
     networks:
       - web
     expose:
