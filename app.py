@@ -2,7 +2,7 @@ import random
 import string
 import os
 
-from flask import Flask, redirect, url_for, abort, render_template
+from flask import Flask, redirect, url_for, abort, render_template, session
 from flask_dance.contrib.google import make_google_blueprint, google
 from oauthlib.oauth2.rfc6749.errors import TokenExpiredError
 
@@ -29,12 +29,16 @@ TOKENS = {}
 
 @app.route("/")
 def index():
-    return redirect("https://discord.gg/FGbgQ4a", 301)
+    if session["next_url"] and google.authorized:
+        url = session.pop("next_url")
+        return redirect(url)
+    return redirect("https://discord.gg/FGbgQ4a")
 
 
 @app.route("/auth")
 def auth():
     if not google.authorized:
+        session["next_url"] = "/auth"
         return redirect(url_for("google.login"))
     try:
         resp = google.get("/oauth2/v1/userinfo")
