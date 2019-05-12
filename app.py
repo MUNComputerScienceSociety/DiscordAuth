@@ -32,7 +32,7 @@ def index():
     if session["next_url"] and google.authorized:
         url = session.pop("next_url")
         return redirect(url)
-    return redirect("https://discord.gg/FGbgQ4a")
+    return redirect("https://discord.gg/FGbgQ4a", 301)
 
 
 @app.route("/auth")
