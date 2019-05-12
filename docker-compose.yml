@@ -12,7 +12,7 @@ services:
       - .env
     labels:
       traefik.enable: true
-      traefik.frontend.rule: "Host: auth.muncompsci.ca"
+      traefik.frontend.rule: "Host: discord.muncompsci.ca"
       traefik.port: 5000
       traefik.frontend.entryPoints: "https"
     volumes:

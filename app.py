@@ -29,6 +29,11 @@ TOKENS = {}
 
 @app.route("/")
 def index():
+    return redirect("https://discord.gg/FGbgQ4a", 301)
+
+
+@app.route("/auth")
+def auth():
     if not google.authorized:
         return redirect(url_for("google.login"))
     try:
