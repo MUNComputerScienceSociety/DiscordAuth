@@ -15,8 +15,6 @@ services:
       traefik.frontend.rule: "Host: discord.muncompsci.ca"
       traefik.port: 5000
       traefik.frontend.entryPoints: "https"
-    volumes:
-      - ./:/app
 networks:
   web:
     external: true
