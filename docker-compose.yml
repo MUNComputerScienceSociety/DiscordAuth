@@ -6,15 +6,15 @@ services:
     restart: always
     networks:
       - web
-    expose:
-      - 5000
     env_file:
       - .env
     labels:
-      traefik.enable: true
-      traefik.frontend.rule: "Host: discord.muncompsci.ca"
-      traefik.port: 5000
-      traefik.frontend.entryPoints: "https"
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.http.services.discord.loadbalancer.server.port=5000"
+      - "traefik.http.routers.discord.rule=(Host(`discord.muncompsci.ca`))"
+      - "traefik.http.routers.discord.entrypoints=websecure"
+      - "traefik.http.routers.discord.tls.certresolver=myresolver"
 networks:
   web:
     external: true
