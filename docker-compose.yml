@@ -15,6 +15,7 @@ services:
       - "traefik.http.routers.discord.rule=(Host(`discord.muncompsci.ca`))"
       - "traefik.http.routers.discord.entrypoints=websecure"
       - "traefik.http.routers.discord.tls.certresolver=myresolver"
+
 networks:
   web:
     external: true
