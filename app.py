@@ -5,7 +5,7 @@ import os
 from flask import Flask, redirect, url_for, abort, render_template, session
 from flask_dance.contrib.google import make_google_blueprint, google
 from oauthlib.oauth2.rfc6749.errors import TokenExpiredError
-from werkzeug.contrib.fixers import ProxyFix
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
