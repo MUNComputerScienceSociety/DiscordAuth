@@ -5,6 +5,7 @@ import os
 from flask import Flask, redirect, url_for, abort, render_template, session
 from flask_dance.contrib.google import make_google_blueprint, google
 from oauthlib.oauth2.rfc6749.errors import TokenExpiredError
+from werkzeug.contrib.fixers import ProxyFix
 
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
@@ -18,6 +19,7 @@ sentry_sdk.init(
 )
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app)
 app.secret_key = os.environ["FLASK_SECRET_KEY"]
 app.config["GOOGLE_OAUTH_CLIENT_ID"] = os.environ["GOOGLE_CLIENT_ID"]
 app.config["GOOGLE_OAUTH_CLIENT_SECRET"] = os.environ["GOOGLE_CLIENT_SECRET"]
