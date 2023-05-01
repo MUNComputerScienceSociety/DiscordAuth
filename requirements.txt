@@ -1,4 +1,4 @@
-flask==1.0.2
+flask==2.3.2
 flask-dance==2.0.0
 gunicorn==19.9.0
 sentry-sdk[flask]==0.7.10
